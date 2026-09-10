@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="utf-8">
-  <title>UpSet</title>
+  <title id="page-title">UpSet</title>
+  <script src="js/i18n.js"></script>
   <script src="js/google-analytics.js"></script>
   <script src="lib/d3.v3.js" charset="utf-8"></script>
   <script src="lib/colorbrewer.js" charset="utf-8"></script>
@@ -23,26 +24,32 @@
 
 <div class="ui-header">
   <div class="header-container">
-    <span class="header">UpSet - Visualizing Intersecting Sets</span>
+    <span class="header" data-i18n="header.title">UpSet - Visualizing Intersecting Sets</span>
     <span id="data-loading-indicator">
            <i class="fa fa-refresh fa-spin"></i>
     </span>
-    <span class="header-right-clickable"><a href="https://github.com/hms-dbmi/UpSetR/">UpSet for R</a></span>
-    <span class="header-right-clickable"><a href="http://caleydo.org/tools/upset/">About UpSet</a></span>
-    <span id="load-data-header" class="header-right-clickable">Load Data</span>
+    <span id="lang-switcher" class="header-right" role="group" aria-label="Language">
+      <button type="button" class="lang-switcher-btn" data-set-lang="ja" aria-pressed="false">JA</button>
+      <span class="lang-sep">|</span>
+      <button type="button" class="lang-switcher-btn" data-set-lang="en" aria-pressed="false">EN</button>
+    </span>
+    <span class="header-right-clickable"><a href="https://github.com/hms-dbmi/UpSetR/" data-i18n="header.upsetR">UpSet for R</a></span>
+    <span class="header-right-clickable"><a href="http://caleydo.org/tools/upset/" data-i18n="header.about">About UpSet</a></span>
+    <span id="load-data-header" class="header-right-clickable" data-i18n="header.loadData">Load Data</span>
     <span id="dataset-selector" class="header-right"></span>
   </div>
 </div>
 
 <div class="ui-menu">
   <div class="menu-container">
-      <span>Provide a <a href="https://github.com/VCG/upset/wiki/Data-Import">JSON file</a> defining your data: <input
+      <span><span data-i18n-html="menu.customData">Provide a <a href="https://github.com/VCG/upset/wiki/Data-Import">JSON file</a> defining your data: </span><input
               id="custom-dataset-url"
               type="text" style="width: 500px"
               value="https://dl.dropboxusercontent.com/u/36962787/UpSet/movies.json"/> <input id="custom-dataset-submit"
                                                                                               type="submit"
-                                                                                              value="Submit"> | <a
-              href="https://github.com/VCG/upset/wiki/">Learn how to create the JSON file</a></span>
+                                                                                              value="Submit"
+                                                                                              data-i18n-value="menu.submit"> | <a
+              href="https://github.com/VCG/upset/wiki/" data-i18n="menu.learnJson">Learn how to create the JSON file</a></span>
   </div>
 </div>
 
@@ -59,9 +66,9 @@
       <div id="groupConfig" class="configTable">
 
 
-        <div class="configHeader">First, aggregate by</div>
+        <div class="configHeader" data-i18n="config.firstAggregate">First, aggregate by</div>
         <div id="firstLevelGrouping"></div>
-        <div id='firstLevelMinCardinality' style="padding-top: 5px;" hidden>overlap degree:<br/> <input
+        <div id='firstLevelMinCardinality' style="padding-top: 5px;" hidden><span data-i18n="config.overlapDegree">overlap degree:</span><br/> <input
                 id='firstLevelMinCardinalityInput' type='number' min='0' max='12' value='0'>
 
         </div>
@@ -69,60 +76,60 @@
 
 
       <div id="groupL2Config" class="configTable">
-        <div class="configHeader">Then, aggregate by</div>
+        <div class="configHeader" data-i18n="config.thenAggregate">Then, aggregate by</div>
         <div id="secondLevelGrouping"></div>
-        <div id='secondLevelMinCardinality' style="padding-top: 5px;" hidden>overlap degree:<br/> <input
+        <div id='secondLevelMinCardinality' style="padding-top: 5px;" hidden><span data-i18n="config.overlapDegree">overlap degree:</span><br/> <input
                 id='secondLevelMinCardinalityInput' type='number' min='0' max='12' value='0'>
         </div>
       </div>
 
       <div id="sortConfig" class="configTable">
-        <div class="configHeader"> Sort by</div>
+        <div class="configHeader" data-i18n="config.sortBy"> Sort by</div>
         <div><input type='radio' id='sortNrSetsInIntersection' name='sort' checked="true">
-          <label for="sortNrSetsInIntersection">Degree</label></div>
-        <div><input type='radio' id='sortIntersectionSize' name='sort'><label for="sortIntersectionSize">
+          <label for="sortNrSetsInIntersection" data-i18n="config.degree">Degree</label></div>
+        <div><input type='radio' id='sortIntersectionSize' name='sort'><label for="sortIntersectionSize" data-i18n="config.cardinality">
           Cardinality</label></div>
         <div><input type='radio' id="sortRelevanceMeasure" name='sort'>
-          <label for="sortRelevanceMeasure"> Deviation</label></div>
+          <label for="sortRelevanceMeasure" data-i18n="config.deviation"> Deviation</label></div>
       </div>
 
       <div id='options' class='configTable'>
-        <div class="configHeader">Aggregates</div>
-        <div><span class="option level-1-button" id="collapseAll">Collapse All</span></div>
-        <div><span class="option level-1-button" id="expandAll">Expand All</span></div>
+        <div class="configHeader" data-i18n="config.aggregates">Aggregates</div>
+        <div><span class="option level-1-button" id="collapseAll" data-i18n="config.collapseAll">Collapse All</span></div>
+        <div><span class="option level-1-button" id="expandAll" data-i18n="config.expandAll">Expand All</span></div>
       </div>
 
 
       <div id='rowSize' class='configTable'>
-        <div class="configHeader">Row Height</div>
+        <div class="configHeader" data-i18n="config.rowHeight">Row Height</div>
         <div>
           <select id='rowSizeValue'>
-            <option value="20">Large</option>
-            <option value="15">Medium</option>
-            <option value="12">Small</option>
+            <option value="20" data-i18n="config.large">Large</option>
+            <option value="15" data-i18n="config.medium">Medium</option>
+            <option value="12" data-i18n="config.small">Small</option>
           </select>
         </div>
       </div>
 
 
       <div id='intersectionSize' class='configTable'>
-        <div class="configHeader">Data</div>
-        <div>Min Degree:<br/> <input id='minCardinality' type='number' min='0' max='12' value='0'>
+        <div class="configHeader" data-i18n="config.data">Data</div>
+        <div><span data-i18n="config.minDegree">Min Degree:</span><br/> <input id='minCardinality' type='number' min='0' max='12' value='0'>
 
         </div>
-        <div>Max Degree:<br/><input id='maxCardinality' type='number' min='0' max='12'></div>
-        <div><input type='checkbox' id='hideEmpties' checked='true'><label for="hideEmpties">Hide Empty
+        <div><span data-i18n="config.maxDegree">Max Degree:</span><br/><input id='maxCardinality' type='number' min='0' max='12'></div>
+        <div><input type='checkbox' id='hideEmpties' checked='true'><label for="hideEmpties" data-i18n="config.hideEmpty">Hide Empty
           Intersections</label></div>
       </div>
 
 
       <div id='venn-diagram-viewer' class='configTable'>
-        <div class="configHeader">Venn Diagram</div>
+        <div class="configHeader" data-i18n="config.venn">Venn Diagram</div>
         <div id="venn-vis"></div>
       </div>
 
       <div id='dataset-info-viewer'>
-        <div class="configH1">Dataset Information</div>
+        <div class="configH1" data-i18n="config.datasetInfo">Dataset Information</div>
         <div id='dataset-info-content'>Was</div>
       </div>
 
@@ -172,7 +179,7 @@
       <span id="moveHandle"></span>
 
       <div class="element-view-header">
-        <div class="element-view-title">
+        <div class="element-view-title" data-i18n="element.visualizations">
           Element Visualizations
         </div>
       </div>
@@ -182,7 +189,7 @@
       </div>
 
       <div class="element-view-header">
-        <div class="element-view-title">
+        <div class="element-view-title" data-i18n="element.queries">
           Element Queries
         </div>
       </div>
@@ -193,7 +200,7 @@
       </div>
 
       <div class="element-view-header">
-        <div class="element-view-subtitle">
+        <div class="element-view-subtitle" data-i18n="element.queryFilters">
           Query Filters
         </div>
       </div>
@@ -204,7 +211,7 @@
       </div>
 
       <div class="element-view-header">
-        <div class="element-view-subtitle">
+        <div class="element-view-subtitle" data-i18n="element.queryResults">
           Query Results
         </div>
       </div>

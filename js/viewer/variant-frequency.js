@@ -1,17 +1,17 @@
 var variantFrequencyConfiguration = {
-    name: "Transition/Transversion Ratio",
+    name: t("viewer.variantFrequency"),
     attributes: [{
-            name: "Reference Allele",
+            name: t("viewer.referenceAllele"),
             type: "string",
             variable: "reference"
         },
         {
-            name: "Alternative Allele",
+            name: t("viewer.alternativeAllele"),
             type: "string",
             variable: "alternative"
         }],
     parameters: [{
-            name: "Show Matrix",
+            name: t("viewer.showMatrix"),
             type: "boolean",
             variable: "showMatrix"
         }],
@@ -125,7 +125,7 @@ var variantFrequencyConfiguration = {
             .append("text")
               .attr("transform", "translate(0," + (size+10) + ")" )
               .style("text-anchor", "start")
-              .text("Ref Allele");
+              .text(t("chart.refAllele"));
 
             svg.append("g")
                 .attr("class", "y axis")
@@ -136,7 +136,7 @@ var variantFrequencyConfiguration = {
               .attr("y", -10-size)
               .attr("dy", ".71em")
               .style("text-anchor", "end")
-              .text("Alt Allele");
+              .text(t("chart.altAllele"));
 
             var hm = svg.append("svg:g");
             var hmrows = hm.selectAll("g")

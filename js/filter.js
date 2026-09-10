@@ -18,9 +18,9 @@ $(EventManager).bind("filter-activated", function (event, data) {
 var FilterConfigurations = {
     // subset filter
     subset: {
-      name: "Subset",
+      name: t('filter.subset'),
       types: ["sets"],
-      parameters: [ { name: "Subset", type: "subset", variable: "subset" } ],
+      parameters: [ { name: t('filter.subset'), type: "subset", variable: "subset" } ],
       test: function( item, attribute, parameters ) {
             /* subset definition example:
                 key = set id, value = yes or no
@@ -51,54 +51,54 @@ var FilterConfigurations = {
     },
     // string match filter
     stringMatch: {
-      name: "Contains",
+      name: t('filter.contains'),
       types: ["string", "id"],
-      parameters: [ { name: "String", type: "string", variable: "pattern", default: "" } ],
+      parameters: [ { name: t('filter.string'), type: "string", variable: "pattern", default: "" } ],
       test: function( item, attribute, parameters ) {
             return ( attribute.values[item].indexOf( parameters.pattern ) >= 0 );
         }
     },
     // exact string length filter
     stringLength: {
-      name: "String Length",
+      name: t('filter.stringLength'),
       types: ["string", "id"],
-      parameters: [ { name: "Length", type: "integer", variable: "len", default: 0 } ],
+      parameters: [ { name: t('filter.length'), type: "integer", variable: "len", default: 0 } ],
       test: function( item, attribute, parameters ) {
             return ( attribute.values[item].length === parameters.len );
         }
     },
     // string match filter
     stringRegex: {
-      name: "Regular Expression",
+      name: t('filter.regex'),
       types: ["string", "id"],
-      parameters: [ { name: "Pattern", type: "string", variable: "pattern", default: "." } ],
+      parameters: [ { name: t('filter.pattern'), type: "string", variable: "pattern", default: "." } ],
       test: function( item, attribute, parameters ) {
             return ( attribute.values[item].match( parameters.pattern ) !== null );
         }
     },
     // numeric range filter
     numericRange: {
-      name: "Range",
+      name: t('filter.range'),
       types: ["float", "integer"],
-      parameters: [ { name: "Minimum", type: "float", variable: "min", default: 0 }, { name: "Maximum", type: "float", variable: "max", default: 1 } ],
+      parameters: [ { name: t('filter.minimum'), type: "float", variable: "min", default: 0 }, { name: t('filter.maximum'), type: "float", variable: "max", default: 1 } ],
       test: function( item, attribute, parameters ) {
             return ( attribute.values[item] >= parameters.min && attribute.values[item] <= parameters.max );
         }
     },
     // numeric minimum filter
     numericMinimum: {
-      name: "Minimum",
+      name: t('filter.minimum'),
       types: ["float", "integer"],
-      parameters: [ { name: "Minimum", type: "float", variable: "min", default: 0 } ],
+      parameters: [ { name: t('filter.minimum'), type: "float", variable: "min", default: 0 } ],
       test: function( item, attribute, parameters ) {
             return ( attribute.values[item] >= parameters.min );
         }
     },
     // numeric maximum filter
     numericMaximum: {
-      name: "Maximum",
+      name: t('filter.maximum'),
       types: ["float", "integer"],
-      parameters: [ { name: "Maximum", type: "float", variable: "max", default: 0 } ],
+      parameters: [ { name: t('filter.maximum'), type: "float", variable: "max", default: 0 } ],
       test: function( item, attribute, parameters ) {
             return ( attribute.values[item] <= parameters.max );
         }
@@ -258,7 +258,7 @@ FilterCollection.prototype.renderFilters = function() {
 
     // check if there is a viewer
     if ( self.list.length === 0 ) {
-        filterElement.append( "div" ).attr( "class", "info-message" ).html( 'No filters configured. Click <i class="fa fw fa-plus"></i> button to add a new filter.' );
+        filterElement.append( "div" ).attr( "class", "info-message" ).html( t('filter.none') );
 
         return self;
     }

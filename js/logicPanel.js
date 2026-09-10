@@ -138,7 +138,7 @@ function LogicPanel(params){
             x:25,
             y:10
         }).style({ fill:"black", "text-anchor":"start", "cursor":"auto" })
-            .text("Query")
+            .text(t('query.label'))
 //            .on("click", addLogic)
 
 
@@ -670,7 +670,7 @@ function LogicPanel(params){
 
     function changeGroupLabel() {
 //        console.log("enter");
-        var label = prompt("Group label:",actualGroupLabel);
+        var label = prompt(t('query.groupLabel'), actualGroupLabel);
         if (label !=null){
             actualGroupLabel = label
             panel.select("#fakeGroup").select(".groupLabel").text(actualGroupLabel);
