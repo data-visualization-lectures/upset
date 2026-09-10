@@ -19,7 +19,7 @@ function initData(ctx, callback, datasets) {
     initCallback = callback;
     globalCtx = ctx;
     if (!datasets) {
-        $.when($.ajax({ url: 'datasets.json', dataType: 'json' })).then(
+        $.when($.ajax({ url: 'data/datasets.json', dataType: 'json' })).then(
             function (data, textStatus, jqXHR) {
                 loadDataSetDescriptions(data);
             },
