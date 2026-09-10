@@ -61,7 +61,10 @@ var populateDSSelector = function () {
         })
         .attr('id', 'dataSetSelector')
         .text(function (d) {
-            return d.name + ' ' + '(' + getNumberOfSets(d) + ' sets, ' + getNumberOfAttributes(d) + ' attributes' + ')';
+            return d.name + ' (' + t('dataset.meta', {
+                sets: getNumberOfSets(d),
+                attrs: getNumberOfAttributes(d)
+            }) + ')';
         })
         .property('selected', function (d, i) {
             return (i === queryParameters['dataset'])
@@ -89,7 +92,7 @@ function loadDataSetDescriptions(dataSetList) {
 }
 
 var handleDataSetError = function (jqXHR, textStatus, errorThrown) {
-    alert("Could not load dataset. \n Error: " + errorThrown)
+    alert(t('dataset.loadError', { error: errorThrown }));
 }
 
 function loadDataSetFromQueryParameters() {
@@ -180,7 +183,7 @@ var setUpGUIElements = function () {
 
     var select = dataSelect.append('select').attr("id", "header-ds-selector");
 
-    dataSelect.append('span').attr("class", "header-right").text('Choose Dataset');
+    dataSelect.append('span').attr("class", "header-right").text(t('header.chooseDataset'));
 }
 
 function retrieveQueryParameters() {
@@ -382,7 +385,7 @@ function parseDataSet(data, dataSetDescription) {
 
     // add implicit attributes
     var setCountAttribute = {
-        name: 'Set Count',
+        name: t('dataset.setCountAttr'),
         type: 'integer',
         values: [],
         sort: 1,
@@ -399,7 +402,7 @@ function parseDataSet(data, dataSetDescription) {
     attributes.push(setCountAttribute);
 
     var setsAttribute = {
-        name: 'Sets',
+        name: t('dataset.setsAttr'),
         type: 'sets',
         values: [],
         sort: 1
@@ -489,16 +492,16 @@ var updateDatasetInformation = function (dataSetDescription) {
     infoBox.empty();
     //infoBox.append('<hr><br />');
     infoBox.append('<p style="padding-bottom: 5px">');
-    infoBox.append("<b>Name:</b> " + dataSetDescription.name + "<br />");
-    infoBox.append("<b># Sets:</b> " + sets.length + "<br />");
-    infoBox.append("<b># Attributes</b>: " + attributes.length + "<br />");
-    infoBox.append("<b># Elements:</b> " + depth + "<br />");
+    infoBox.append("<b>" + t('dataset.name') + "</b> " + dataSetDescription.name + "<br />");
+    infoBox.append("<b>" + t('dataset.setCount') + "</b> " + sets.length + "<br />");
+    infoBox.append("<b>" + t('dataset.attributeCount') + "</b> " + attributes.length + "<br />");
+    infoBox.append("<b>" + t('dataset.elementCount') + "</b> " + depth + "<br />");
     infoBox.append('</p> <p style="padding-bottom: 10px">');
     if (dataSetDescription.author) {
-        infoBox.append("<b>Author</b>: " + dataSetDescription.author + "<br />");
+        infoBox.append("<b>" + t('dataset.author') + "</b> " + dataSetDescription.author + "<br />");
     }
     if (dataSetDescription.description) {
-        infoBox.append("<b>Description:</b> <br />" + dataSetDescription.description + "<br />");
+        infoBox.append("<b>" + t('dataset.description') + "</b> <br />" + dataSetDescription.description + "<br />");
     }
     if (dataSetDescription.source) {
         if (dataSetDescription.source.indexOf("http://") == 0) {
@@ -508,10 +511,10 @@ var updateDatasetInformation = function (dataSetDescription) {
                 urlText = urlText.substring(0, numCharacters) + ".."
             }
 
-            infoBox.append("<b>Source:</b> <br /><a href=\"" + dataSetDescription.source + "\">" + urlText + "</a><br />");
+            infoBox.append("<b>" + t('dataset.source') + "</b> <br /><a href=\"" + dataSetDescription.source + "\">" + urlText + "</a><br />");
 
         } else {
-            infoBox.append("<b>Source:</b> <br />" + dataSetDescription.source + "<br />");
+            infoBox.append("<b>" + t('dataset.source') + "</b> <br />" + dataSetDescription.source + "<br />");
         }
     }
 

@@ -1,5 +1,5 @@
 var scatterplotConfiguration = {
-    name: "Scatterplot",
+    name: t("viewer.scatterplot"),
     attributes: [{
             name: "x",
             type: "numeric",
@@ -11,13 +11,13 @@ var scatterplotConfiguration = {
             variable: "y"
         }],
     parameters: [{
-            name: "Log Scale X",
+            name: t("viewer.logScaleX"),
             type: "boolean",
             variable: "logScaleX",
             default: false
         },
         {
-            name: "Log Scale Y",
+            name: t("viewer.logScaleY"),
             type: "boolean",
             variable: "logScaleY",
             default: false

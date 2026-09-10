@@ -37,10 +37,10 @@ function BrushableScale(ctx, svg, width, updateFunctionNameInCtx, redrawFunction
     var maxValue = 100;
 
     var labels=[
-        {name: "largest intersection",id:"I", value:100 },
-        {name: "largest group",id:"G", value:200 },
-        {name: "largest set",id:"S", value:300 },
-        {name: "all items",id:"A", value:400 }
+        {name: t("chart.largestIntersection"),id:"I", value:100 },
+        {name: t("chart.largestGroup"),id:"G", value:200 },
+        {name: t("chart.largestSet"),id:"S", value:300 },
+        {name: t("chart.allItems"),id:"A", value:400 }
     ]
 
 

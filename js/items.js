@@ -5,10 +5,10 @@ function plotSelectionTabs( element, selections, activeSelection ) {
     if ( selections.getSize() <= 0 ) {
         d3.select(element).append('div' )
             .attr( 'class', 'info-message' )
-            .html( 'No queries. Click <i class="fa fw fa-plus"></i> button to add a new query.' );
+            .html( t('query.none') );
 
         d3.select('#filters-list').html("");
-        d3.select('#filters-list').append( "div" ).attr( "class", "info-message" ).html( 'No active query.' );
+        d3.select('#filters-list').append( "div" ).attr( "class", "info-message" ).html( t('query.noActive') );
         d3.select('#filters-controls').html("");
     }
     else {
@@ -67,7 +67,7 @@ function plotSelectedItems( elementId, selection ) {
     element.html("");
 
     if ( !selection || selections.getSize() === 0 || !selections.getColor( selection ) ) {
-        element.append( "div" ).attr( "class", "info-message" ).html( 'No active query.' );
+        element.append( "div" ).attr( "class", "info-message" ).html( t('query.noActive') );
         return;
     }
 

@@ -31,6 +31,26 @@
     padding-right: 10px; }
   .upset-body .header-right-clickable {
     cursor: pointer; }
+  .upset-body #lang-switcher {
+    color: white;
+    font-weight: bold;
+    float: right;
+    padding-right: 10px; }
+  .upset-body .lang-switcher-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.55);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: bold;
+    line-height: 1;
+    padding: 0 2px; }
+  .upset-body .lang-switcher-btn.is-active {
+    color: white; }
+  .upset-body .lang-sep {
+    color: rgba(255, 255, 255, 0.4);
+    padding: 0 2px; }
   .upset-body #header-ds-selector {
     float: right;
     color: black; }

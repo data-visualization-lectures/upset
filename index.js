@@ -5,6 +5,7 @@ require('./css/html_styles.scss');
 require('./css/set_view.scss');
 require('./css/element_view.scss');
 
+require('script-loader!./js/i18n');
 require('script-loader!./js/event-manager');
 require('script-loader!./js/venn');
 require('script-loader!./js/utilities');

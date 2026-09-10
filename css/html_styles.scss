@@ -57,6 +57,31 @@ a:visited {
   cursor: pointer;
 }
 
+#lang-switcher {
+  @extend .header-right;
+}
+
+.lang-switcher-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.55);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: bold;
+  line-height: 1;
+  padding: 0 2px;
+}
+
+.lang-switcher-btn.is-active {
+  color: $header-font-color;
+}
+
+.lang-sep {
+  color: rgba(255, 255, 255, 0.4);
+  padding: 0 2px;
+}
+
 #header-ds-selector {
   float: right;
   color: $font-color;

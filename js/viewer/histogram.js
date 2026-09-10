@@ -1,7 +1,7 @@
 var histogramConfiguration = {
-    name: "Histogram",
+    name: t("viewer.histogram"),
     attributes: [{
-            name: "Variable",
+            name: t("viewer.variable"),
             type: "numeric",
             variable: "variable"
         }],
@@ -10,19 +10,19 @@ var histogramConfiguration = {
             type: "boolean",
             variable: "smallMultiples"
         }*/{
-            name: "Bins",
+            name: t("viewer.bins"),
             type: "integer",
             variable: "bins",
             default: 20
         },
         {
-            name: "Frequency?",
+            name: t("viewer.frequency"),
             type: "boolean",
             variable: "isFrequency",
             default: false
         },
         {
-            name: "Only active?",
+            name: t("viewer.onlyActive"),
             type: "boolean",
             variable: "isActiveOnly",
             default: false
@@ -140,7 +140,7 @@ var histogramConfiguration = {
               .attr("y", -margin.left)
               .attr("dy", ".71em")
               .style("text-anchor", "end")
-              .text(function() { return ( parameterMap.isFrequency ? "Frequency" : "Probability" ); } );
+              .text(function() { return ( parameterMap.isFrequency ? t("chart.frequency") : t("chart.probability") ); } );
 
 
     }
