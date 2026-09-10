@@ -161,6 +161,7 @@
         'group.negativeExpected': { ja: '期待値より少ない', en: 'Negative Expected Value' },
         'group.asExpected': { ja: '期待どおり', en: 'As Expected' },
 
+        'chart.cardinality': { ja: '要素数', en: 'Cardinality' },
         'chart.largestIntersection': { ja: '最大の交差', en: 'largest intersection' },
         'chart.largestAggregate': { ja: '最大の集約', en: 'largest aggregate' },
         'chart.largestSet': { ja: '最大の集合', en: 'largest set' },
