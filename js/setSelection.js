@@ -423,7 +423,7 @@ function plotSetOverview() {
 
                 return "translate(" + (middlePos) + "," + (.8 * paginationLinespace) + ")";
             }
-        }).text("Set Selection")
+        }).text(t('set.selection'))
 
 
         pagiGroup.append("rect")
@@ -502,7 +502,7 @@ function plotSetOverview() {
             "pointer-events": "none"
         }).attr({
             "transform": "translate(" + (middlePos) + "," + (3.0 * paginationLinespace) + ")"
-        }).text("Batch Add Sets")
+        }).text(t('set.batchAdd'))
 
 
         pagiGroup.append("rect").attr({
@@ -537,7 +537,7 @@ function plotSetOverview() {
             "pointer-events": "none"
         }).attr({
             "transform": "translate(" + (middlePos) + "," + (4 * paginationLinespace) + ")"
-        }).text("Sort Sets")
+        }).text(t('set.sortSets'))
 
 
         // --- UPDATES
@@ -639,7 +639,7 @@ function plotSetOverview() {
             menuContent =
                 [[
                     {
-                        name: "Add All Sets", func: function () {
+                        name: t('set.addAll'), func: function () {
                             unusedSets.forEach(function (d) {
                                 ctx.setSelection.multiSelIn.add(d.elementName);
                             });
@@ -648,7 +648,7 @@ function plotSetOverview() {
                         }
                     },
                     {
-                        name: "Clear All Sets", func: function () {
+                        name: t('set.clearAll'), func: function () {
                             ctx.setSelection.multiSelIn = d3.set();
                             usedSets.forEach(function (d) {
                                 ctx.setSelection.multiSelOut.add(d.elementName);
@@ -658,7 +658,7 @@ function plotSetOverview() {
                         }
                     },
                     {
-                        name: "Cancel", func: function () {
+                        name: t('set.cancel'), func: function () {
                             ctx.setSelection.multiSelIn = d3.set();
                             ctx.setSelection.multiSelOut = d3.set();
 
@@ -668,14 +668,14 @@ function plotSetOverview() {
                             plotSetOverview();
                         }, fontawe: "\uf00d"
                     },
-                    {name: "Confirm", func: bulkChange, fontawe: "\uf00c"}
+                    {name: t('set.confirm'), func: bulkChange, fontawe: "\uf00c"}
                 ]]
 
         } else if (ctx.setSelection.mode === "sortFilter") {
             menuContent =
                 [[
                     {
-                        name: "by Size", func: function () {
+                        name: t('set.bySize'), func: function () {
                             ctx.setSelection.setOrder = "size"
                             ctx.setSelection.mode = "none"
                             ctx.setSelection.modeChange = true
@@ -683,7 +683,7 @@ function plotSetOverview() {
                         }
                     },
                     {
-                        name: "by Name", func: function () {
+                        name: t('set.byName'), func: function () {
                             ctx.setSelection.setOrder = "name"
                             ctx.setSelection.mode = "none"
                             ctx.setSelection.modeChange = true

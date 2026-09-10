@@ -53,10 +53,10 @@ var ctx = {
     barTransitions: true,
 
     globalStatistics: [
-        {name: "largest intersection", id: "I", value: 100 },
-        {name: "largest aggregate", id: "A", value: 200 },
-        {name: "largest set", id: "S", value: 300 },
-        {name: "universal set", id: "U", value: 400 }
+        {name: t("chart.largestIntersection"), id: "I", value: 100 },
+        {name: t("chart.largestAggregate"), id: "A", value: 200 },
+        {name: t("chart.largestSet"), id: "S", value: 300 },
+        {name: t("chart.universalSet"), id: "U", value: 400 }
     ],
 
     nameForRelevance:"Disproportionality",
@@ -537,7 +537,7 @@ function UpSet(datasets) {
                     ctx,
                     d3.select(this),
                     ctx.subSetSizeWidth,
-                    "brushableScaleSubsetUpdate", "plotTable", "subSetSizeScale", {columnLabel:"Cardinality",
+                    "brushableScaleSubsetUpdate", "plotTable", "subSetSizeScale", {columnLabel: t("chart.cardinality"),
                         actionsTrioggeredByLabelClick:[function(){
                             UpSetState.sorting = StateOpt.sortBySubSetSize;
                             UpSetState.grouping = undefined;
@@ -599,7 +599,7 @@ function UpSet(datasets) {
                 rowTransition();
             });
 
-        tableHeaderGroupEnter.append('text').text('Deviation')
+        tableHeaderGroupEnter.append('text').text(t('chart.deviation'))
             .attr({
                 id: "expectedValueLabelText",
                 class: 'columnLabel sortRelevanceMeasureGlobal',
@@ -2326,11 +2326,11 @@ function UpSet(datasets) {
     function setUpSortSelections() {
 
         // groupingDefinitions
-        ctx.groupingOptions[StateOpt.groupByIntersectionSize] = { name: "Degree", l1action:function(){},l2action:function(){} };
-        ctx.groupingOptions[StateOpt.groupBySet]={ name: "Sets", l1action:function(){},l2action:function(){} };
-        ctx.groupingOptions[StateOpt.groupByRelevanceMeasure] ={ name: "Deviation", l1action:function(){}, l2action:function(){} };
-        ctx.groupingOptions[StateOpt.groupByOverlapDegree] = { name: "Overlaps", l1action:function(){}, l2action:function(){} };
-        ctx.groupingOptions["dont"] ={ name: "Don't Aggregate", l1action:function(){}, l2action:function(){} };
+        ctx.groupingOptions[StateOpt.groupByIntersectionSize] = { name: t('config.degree'), l1action:function(){},l2action:function(){} };
+        ctx.groupingOptions[StateOpt.groupBySet]={ name: t('config.sets'), l1action:function(){},l2action:function(){} };
+        ctx.groupingOptions[StateOpt.groupByRelevanceMeasure] ={ name: t('config.deviation'), l1action:function(){}, l2action:function(){} };
+        ctx.groupingOptions[StateOpt.groupByOverlapDegree] = { name: t('config.overlaps'), l1action:function(){}, l2action:function(){} };
+        ctx.groupingOptions["dont"] ={ name: t('config.dontAggregate'), l1action:function(){}, l2action:function(){} };
 
 
 

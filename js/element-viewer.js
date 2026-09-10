@@ -253,7 +253,7 @@ ElementViewerCollection.prototype.renderViewer = function( showEditor ) {
 
     // check if there is a viewer
     if ( self.list.length === 0 ) {
-        viewerElement.append( "div" ).attr( "class", "info-message" ).html( 'No visualizations configured. Click <i class="fa fw fa-plus"></i> button to add a new visualization.' );
+        viewerElement.append( "div" ).attr( "class", "info-message" ).html( t('viewer.none') );
 
         return self;
     }

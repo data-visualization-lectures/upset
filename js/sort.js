@@ -134,9 +134,9 @@ var fillMasks = function (setMask, length, minSets, queries, defaultMask) {
 
 var groupByRelevanceMeasure = function (subSets, level, parentGroup) {
     var newGroups = [];
-    newGroups.push(new Group('GROUP_POS_DEV' + parentGroup.id, 'Positive Expected Value', level));
-    newGroups.push(new Group('GROUP_NEG_DEV' + parentGroup.id, 'Negative Expected Value', level));
-    newGroups.push(new Group(EMPTY_GROUP_ID + parentGroup.id, 'As Expected', level));
+    newGroups.push(new Group('GROUP_POS_DEV' + parentGroup.id, t('group.positiveExpected'), level));
+    newGroups.push(new Group('GROUP_NEG_DEV' + parentGroup.id, t('group.negativeExpected'), level));
+    newGroups.push(new Group(EMPTY_GROUP_ID + parentGroup.id, t('group.asExpected'), level));
     for (var i = 0; i < subSets.length; i++) {
         var index = 0
         if (subSets[i].disproportionality > 0) {
@@ -155,10 +155,10 @@ var groupByRelevanceMeasure = function (subSets, level, parentGroup) {
 
 var groupByIntersectionSize = function (subSets, level, parentGroup) {
     var newGroups = [];
-    newGroups.push(new Group(EMPTY_GROUP_ID + parentGroup.id, 'Degree 0 (in no set)', level));
+    newGroups.push(new Group(EMPTY_GROUP_ID + parentGroup.id, t('group.degreeZero'), level));
     var maxSetSize = Math.min(usedSets.length, UpSetState.maxCardinality);
     for (var i = UpSetState.minCardinality; i < maxSetSize; i++) {
-        newGroups.push(new Group(SET_SIZE_GROUP_PREFIX + (i + 1) + '_' + parentGroup.id, 'Degree ' + (i + 1) + " (" + (i + 1) + " set intersect.)", level));
+        newGroups.push(new Group(SET_SIZE_GROUP_PREFIX + (i + 1) + '_' + parentGroup.id, t('group.degreeN', { n: i + 1 }), level));
     }
     subSets.forEach(function (subSet) {
         var group = newGroups[subSet.nrCombinedSets];
@@ -176,7 +176,7 @@ var groupByIntersectionSize = function (subSets, level, parentGroup) {
 var groupBySet = function (subSets, level, parentGroup) {
 
     var newGroups = [];
-    var noSet = new Group(EMPTY_GROUP_ID, 'No Set', level);
+    var noSet = new Group(EMPTY_GROUP_ID, t('group.noSet'), level);
     newGroups.push(noSet);
 
     for (var i = 0; i < usedSets.length; i++) {

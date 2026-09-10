@@ -1,7 +1,7 @@
 var wordCloudConfiguration = {
-    name: "Word Cloud",
+    name: t("viewer.wordCloud"),
     attributes: [{
-            name: "Text",
+            name: t("viewer.text"),
             type: "id",
             variable: "text"
         }],
