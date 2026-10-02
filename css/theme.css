@@ -1,0 +1,330 @@
+/**
+ * Visual refinement layer.
+ * Loaded after the other stylesheets; unifies typography, color and spacing
+ * across the HTML panels and the SVG views.
+ *
+ * Type scale (only these sizes are used):
+ *   --fs-xs 10px : axis ticks, slider labels
+ *   --fs-sm 11px : secondary text, numbers, set names, section headings
+ *   --fs-md 12px : body text, controls, chart labels
+ *   --fs-lg 14px : app title
+ */
+:root {
+  --fs-xs: 10px;
+  --fs-sm: 11px;
+  --fs-md: 12px;
+  --fs-lg: 14px;
+
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans",
+    "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic UI", Meiryo,
+    "Helvetica Neue", Arial, sans-serif;
+
+  --text: #333;
+  --text-muted: #777;
+  --text-faint: #999;
+  --line: #e2e2e2;
+  --surface: #f6f6f6;
+  --header-bg: #2b2b2b;
+}
+
+/* ================= Base ================= */
+.upset-body {
+  font-family: var(--font);
+  font-size: var(--fs-md);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+.upset-body input,
+.upset-body select,
+.upset-body button,
+.upset-body label {
+  font-family: inherit;
+  font-size: var(--fs-md);
+  color: var(--text);
+}
+
+.upset-body a:link,
+.upset-body a:visited {
+  color: #2b6cb0;
+}
+
+/* ================= Header ================= */
+.upset-body .header-container {
+  background: var(--header-bg);
+  border-bottom: none;
+  height: 20px;
+  line-height: 20px;
+}
+
+.upset-body .header {
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+
+.upset-body .header-right,
+.upset-body .header-right-clickable,
+.upset-body #lang-switcher {
+  font-size: var(--fs-md);
+  font-weight: 400;
+  padding-right: 14px;
+}
+
+.upset-body .header-right-clickable a:link,
+.upset-body .header-right-clickable a:visited,
+.upset-body .header-right-clickable {
+  color: rgba(255, 255, 255, .8);
+}
+
+.upset-body .header-right-clickable:hover,
+.upset-body .header-right-clickable a:hover {
+  color: #fff;
+}
+
+.upset-body .lang-switcher-btn {
+  font-weight: 600;
+}
+
+.upset-body #dataset-selector select,
+.upset-body #header-ds-selector select {
+  font-size: var(--fs-sm);
+  margin-left: 6px;
+}
+
+/* ================= Left configuration panel ================= */
+.upset-body .ui-layout-west {
+  padding-top: 14px;
+}
+
+.upset-body .configTable,
+.upset-body #dataset-info-viewer {
+  font-size: var(--fs-md);
+  width: 100%;
+  padding-bottom: 14px;
+  line-height: 1.6;
+}
+
+.upset-body .configHeader,
+.upset-body .configH1 {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--text-muted);
+  padding-bottom: 2px;
+}
+
+.upset-body .configTable select,
+.upset-body .configTable input[type=number] {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 120px;
+  padding: 1px 2px;
+}
+
+.upset-body .configTable input[type=radio],
+.upset-body .configTable input[type=checkbox] {
+  margin-right: 4px;
+  vertical-align: -1px;
+}
+
+.upset-body .level-1-button {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  background-color: #ebebeb;
+  color: var(--text);
+  border-radius: 3px;
+  margin: 2px 0;
+  padding: 1px 8px;
+}
+
+.upset-body .level-1-button:hover {
+  background-color: #d8d8d8;
+  color: var(--text);
+}
+
+.upset-body #dataset-info-viewer {
+  box-sizing: border-box;
+  margin-top: 4px;
+  padding: 8px 0 0;
+  background: none;
+  color: var(--text-muted);
+  border-top: 1px solid var(--line);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+}
+
+.upset-body #dataset-info-viewer .configH1 {
+  padding-bottom: 4px;
+}
+
+.upset-body #dataset-info-viewer b,
+.upset-body #dataset-info-viewer strong {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.upset-body #dataset-info-viewer a:link,
+.upset-body #dataset-info-viewer a:visited {
+  color: #2b6cb0;
+  word-break: break-all;
+}
+
+/* ================= Right element panel ================= */
+.upset-body .ui-column.ui-layout-east {
+  border-left: 1px solid var(--line);
+}
+
+.upset-body .element-view-header {
+  border-bottom: 1px solid var(--line);
+  margin-top: 16px;
+  margin-bottom: 6px;
+  padding-left: 0;
+}
+
+.upset-body .element-view-header:first-of-type {
+  margin-top: 4px;
+}
+
+.upset-body .element-view-title,
+.upset-body .element-view-subtitle {
+  display: inline-block;
+  background: none;
+  color: var(--text-muted);
+  padding: 0 0 3px;
+  border-radius: 0;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+
+.upset-body .info-message {
+  background-color: var(--surface);
+  color: var(--text-faint);
+  font-size: var(--fs-sm);
+  font-style: normal;
+  padding: 6px 8px;
+  border-radius: 3px;
+}
+
+.upset-body .item-table-header,
+.upset-body .filter-parameter-viewer {
+  font-size: var(--fs-md);
+}
+
+.upset-body #item-table table {
+  font-size: var(--fs-sm);
+}
+
+.upset-body .selection-tab,
+.upset-body .selection-button {
+  font-size: var(--fs-sm);
+  border-radius: 3px;
+}
+
+.upset-body .filter-active {
+  border: 1px solid var(--line);
+}
+
+.upset-body #selection-tabs,
+.upset-body #filters-list,
+.upset-body #item-table {
+  border-bottom-color: var(--line);
+}
+
+/* ================= SVG: set view ================= */
+.upset-body svg text {
+  font-family: var(--font);
+  fill: var(--text);
+}
+
+/* vertical set names and the unused-set strip */
+.upset-body .setLabel,
+.upset-body .connection {
+  font: 400 var(--fs-sm) var(--font);
+}
+
+.upset-body .setRow .setLabel {
+  font-weight: 500;
+}
+
+.upset-body .setLabel.small {
+  font: 400 var(--fs-xs) var(--font);
+}
+
+/* aggregate row labels ("Degree 1 (...)") */
+.upset-body .groupLabel {
+  font-family: var(--font);
+  font-size: var(--fs-md);
+  font-weight: 400;
+}
+
+.upset-body .groupLabel.small {
+  font-size: var(--fs-xs);
+}
+
+/* bar value labels */
+.upset-body .intersectionSizeLabel {
+  font-family: var(--font);
+  font-size: var(--fs-sm);
+}
+
+.upset-body text.intersectionSizeLabel {
+  fill: var(--text-muted);
+}
+
+/* column headings: Cardinality / Deviation / attributes */
+.upset-body .columnLabel,
+.upset-body .axis .columnLabel {
+  font: 500 var(--fs-md) var(--font);
+}
+
+/* axes */
+.upset-body .axis text {
+  font-size: var(--fs-xs);
+  fill: var(--text-muted);
+}
+
+.upset-body .axis path,
+.upset-body .axis line {
+  stroke: #bbb;
+}
+
+.upset-body .sliderLabel text {
+  font: var(--fs-xs) var(--font);
+}
+
+/* set selection controls above the matrix */
+.upset-body .pagination,
+.upset-body .setMenuExtra {
+  font-family: var(--font);
+  font-size: var(--fs-sm);
+  font-weight: 400;
+}
+
+.upset-body .setSelectionButtonText {
+  fill: var(--text);
+  font-weight: 500;
+}
+
+/* softer aggregate row bands */
+.upset-body .groupBackGround {
+  stroke: #c8c8c8;
+  fill: #e6e6e6;
+  opacity: .45;
+}
+
+.upset-body .groupBackGround.secondLevel {
+  stroke: #dadada;
+}
+
+.upset-body .axis text.columnLabel,
+.upset-body text.columnLabel {
+  fill: var(--text);
+}
+
+.upset-body .labelBackground {
+  fill: #e4e4e4;
+}
+
+.upset-body .labelBackground:hover {
+  fill: #cfcfcf;
+}
