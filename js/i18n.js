@@ -70,6 +70,7 @@
     var messages = {
         'page.title': { ja: 'UpSet', en: 'UpSet' },
         'header.title': { ja: 'UpSet - 集合の重なりを可視化', en: 'UpSet - Visualizing Intersecting Sets' },
+        'header.dataviz': { ja: 'dataviz.jp', en: 'dataviz.jp' },
         'header.upsetR': { ja: 'R版 UpSet', en: 'UpSet for R' },
         'header.about': { ja: 'UpSetについて', en: 'About UpSet' },
         'header.loadData': { ja: 'データを読み込む', en: 'Load Data' },

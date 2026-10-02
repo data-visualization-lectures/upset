@@ -28,10 +28,18 @@
 }
 
 /* ================= Base ================= */
+html,
+.upset-body {
+  box-sizing: border-box;
+}
+
 .upset-body {
   font-family: var(--font);
   font-size: var(--fs-md);
   color: var(--text);
+  margin: 0;
+  /* auth header 48px + dataviz-tool-header ~56px */
+  padding-top: 104px;
   -webkit-font-smoothing: antialiased;
 }
 

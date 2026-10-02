@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title id="page-title">UpSet</title>
   <script src="js/i18n.js"></script>
   <script src="js/google-analytics.js"></script>
@@ -22,6 +23,7 @@
 </head>
 <body class="upset-body">
 
+<dataviz-tool-header></dataviz-tool-header>
 
 <div class="ui-header">
   <div class="header-container">
@@ -34,6 +36,7 @@
       <span class="lang-sep">|</span>
       <button type="button" class="lang-switcher-btn" data-set-lang="en" aria-pressed="false">EN</button>
     </span>
+    <span class="header-right-clickable"><a href="https://www.dataviz.jp/" data-i18n="header.dataviz">dataviz.jp</a></span>
     <span class="header-right-clickable"><a href="https://github.com/hms-dbmi/UpSetR/" data-i18n="header.upsetR">UpSet for R</a></span>
     <span class="header-right-clickable"><a href="http://caleydo.org/tools/upset/" data-i18n="header.about">About UpSet</a></span>
     <span id="load-data-header" class="header-right-clickable" data-i18n="header.loadData">Load Data</span>
@@ -46,7 +49,7 @@
       <span><span data-i18n-html="menu.customData">Provide a <a href="https://github.com/VCG/upset/wiki/Data-Import">JSON file</a> defining your data: </span><input
               id="custom-dataset-url"
               type="text" style="width: 500px"
-              value="https://dl.dropboxusercontent.com/u/36962787/UpSet/movies.json"/> <input id="custom-dataset-submit"
+              value="data/movies/movies.json"/> <input id="custom-dataset-submit"
                                                                                               type="submit"
                                                                                               value="Submit"
                                                                                               data-i18n-value="menu.submit"> | <a
@@ -251,6 +254,11 @@
 <script type="text/javascript" src="js/brushableScale.js"></script>
 <script type="text/javascript" src="js/statisticGraphs.js"></script>
 <script type="text/javascript" src="js/upset.js"></script>
+<!-- dataviz.jp 共通ヘッダー -->
+<script src="https://id.data-viz-lectures.com/lib/supabase.v1.js"></script>
+<script src="https://id.data-viz-lectures.com/lib/dataviz-auth-client.v1.js"></script>
+<script src="https://id.data-viz-lectures.com/lib/settings-compat.v1.js"></script>
+<script src="https://id.data-viz-lectures.com/lib/dataviz-tool-header.v1.js" defer></script>
 <script>
   $(document).ready(function () {
     UpSet();
@@ -272,6 +280,7 @@
 
   });
 </script>
+<script type="text/javascript" src="js/dataviz-bridge.js"></script>
 
 </body>
 </html>
