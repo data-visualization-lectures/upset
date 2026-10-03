@@ -25,6 +25,7 @@
         var ja = {
             load: 'プロジェクトの読込',
             save: 'プロジェクトの保存',
+            sample: 'サンプル',
             noData: 'データが読み込まれていません',
             savePrep: '保存準備中です',
             sampleLoading: 'サンプルデータを読み込み中です',
@@ -34,6 +35,7 @@
         var en = {
             load: 'Load Project',
             save: 'Save Project',
+            sample: 'Sample',
             noData: 'No dataset is loaded',
             savePrep: 'Preparing save...',
             sampleLoading: 'Loading sample data...',
@@ -429,9 +431,32 @@
     }
 
     function setupHeader(header) {
+        header.setSampleConfig({
+            toolId: APP_NAME,
+            onSampleSelect: function (detail) {
+                showHeaderMessage(msg('sampleLoading'), 'info');
+                lastLoadedName = detail.name || lastLoadedName;
+                var url = detail.url;
+                var format = (detail.format || '').toLowerCase();
+                if (format && format !== 'json') {
+                    showHeaderMessage(msg('sampleInvalid'), 'error');
+                    return;
+                }
+                loadDescriptorUrl(url);
+            }
+        });
+
         header.setConfig({
             logo: { type: 'text', text: 'UpSet' },
             buttons: [
+                {
+                    label: msg('sample'),
+                    action: function () {
+                        if (typeof header._openSamplePicker === 'function') {
+                            header._openSamplePicker();
+                        }
+                    }
+                },
                 {
                     label: msg('load'),
                     action: function () { header.showLoadModal(); },
@@ -454,6 +479,13 @@
             ]
         });
 
+        if (header.shadowRoot) {
+            var injected = header.shadowRoot.getElementById('dv-sample-btn');
+            if (injected && injected.parentNode) {
+                injected.parentNode.removeChild(injected);
+            }
+        }
+
         header.setProjectConfig({
             appName: APP_NAME,
             onProjectLoad: function (projectData, meta) {
@@ -475,21 +507,6 @@
                 if (currentProjectId === projectId) {
                     currentProjectId = null;
                 }
-            }
-        });
-
-        header.setSampleConfig({
-            toolId: APP_NAME,
-            onSampleSelect: function (detail) {
-                showHeaderMessage(msg('sampleLoading'), 'info');
-                lastLoadedName = detail.name || lastLoadedName;
-                var url = detail.url;
-                var format = (detail.format || '').toLowerCase();
-                if (format && format !== 'json') {
-                    showHeaderMessage(msg('sampleInvalid'), 'error');
-                    return;
-                }
-                loadDescriptorUrl(url);
             }
         });
     }
