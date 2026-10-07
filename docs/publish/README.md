@@ -1,38 +1,64 @@
-# DatavizJP 公開キット
+# DatavizJP 公開キット（UpSet）
 
-このリポジトリはツール本体だけです。`dataviz-app` と `tools-data-viz-lectures` はワークスペースに無いので、案内サイトと catalog の正本はここでは編集しません。推測で第二の正本を作らないでください。
+このリポジトリはツール本体です。案内・レジストリ・catalog の正本は兄弟リポジトリにあります。推測で第二の catalog は作りません。
 
-掲載スキル（`Prj_DatavizJP/.agents/skills/dataviz-tool-publish/SKILL.md`）どおり、**ツール本体のマージだけでは一覧に出ません**。以下を **両方のリポジトリ** に適用してから完了にしてください。
+| 行き先 | 内容 | このエージェントの適用 |
+| --- | --- | --- |
+| `data-visualization-lectures/upset` | ツール本体・CNAME・共通ヘッダー | PR #4 |
+| `data-visualization-lectures/tools-data-viz-lectures` | 一覧投稿（日英）・カバー・使い分け・機能紹介・changelog | ブランチ `cursor/list-upset-0d50` |
+| `data-visualization-lectures/dataviz-jp` | 一覧投稿（日英）・カバー・使い分け・機能紹介（changelog は置かない） | アクセス不可。このキットの `dataviz-jp/` |
+| `data-visualization-lectures/dataviz-api` | `APP_REGISTRY` に `upset` | ブランチ `cursor/register-upset-0d50` |
+| `data-visualization-lectures/dataviz-app` | `catalog.json`（必要なら `tool-capabilities`） | アクセス不可。このキットの `dataviz-app/` |
 
-- `data-visualization-lectures/tools-data-viz-lectures`
-- ローカル `Prj_DatavizJP/dataviz-app`
+スキル正本は `dataviz-core` の `.agents/skills/`（このトークンでは 404）。Notion の「可視化ツールを公開する」（2026-09-10）は `dataviz-app` に一覧があると書いてあるが、今回の依頼では一覧ホストは `dataviz-jp` と `tools-data-viz-lectures`、changelog は tools 側のみ。
 
-## ツール本体（このリポジトリ）
+## ツール本体
 
 - 本番 URL: `https://upset.dataviz.jp/`
-- GitHub Pages の CNAME: `upset.dataviz.jp`
+- GitHub Pages の CNAME ファイル: `upset.dataviz.jp`（この PR）
 - `appName`: `upset`（`setProjectConfig({ appName: "upset" })` と同じ）
 - 保存データは集合定義のポインタと集約／並べ替え／使用集合名。全要素のダンプは保存しない
-- サンプルは **UpSet の JSON 記述子**（`sets` / `meta`）。CSV 単体は読めない
+- サンプルは UpSet の JSON 記述子（`sets` / `meta`）。CSV 単体は読めない
+- ローカル確認: `http://127.0.0.1:8000/?auth_debug`
 
-DNS で `upset.dataviz.jp` をこの GitHub Pages に向けたあと、ツール本体が 200 を返すことを確認してください。
+## アクセスできたリポジトリへの適用
 
-ローカル確認は `http://127.0.0.1:8000/?auth_debug` を付けます。付けないと認証ヘッダーが www.dataviz.jp へ誘導することがあります。
+`tools-data-viz-lectures` と `dataviz-api` はこのキットと同じ内容をブランチに載せています。PR が開けていればそれをレビューしてください。ブランチだけある場合:
 
-## 適用手順
+```text
+https://github.com/data-visualization-lectures/tools-data-viz-lectures/compare/main...cursor/list-upset-0d50
+https://github.com/data-visualization-lectures/dataviz-api/compare/main...cursor/register-upset-0d50
+```
 
-1. カバー画像 `cover_upset.png` を用意し、両方のリポジトリへコピーする
-   - `content/post/upset/images/cover_upset.png`
-   - `static/images/cover_upset.png`
-2. `content/post/upset/` にこのキットの `index.md` と `index.en.md` を置く（**両方のリポジトリ**）
-3. `dataviz-app` の `APP_REGISTRY` に `app-registry-entry.ts` を追記する。既存の `upset` があれば重複追加しない
-4. `dataviz-app` の `catalog.json` に `catalog-entries.json` をマージする。CSV/JSON は `public/data/` へコピーし、`fileUrl` を `https://app.dataviz.jp/data/...` に合わせてよい。相対パスの `file` はツールオリジン（`https://upset.dataviz.jp/`）でも動く
-5. `dataviz-app` の `tool-capabilities.json` に `tool-capabilities-entry.json` をマージする
-6. 両方のリポジトリで `content/page/how-to-use-data-viz/` の日英と、`content/post/feature-data-viz-capabilities/` の「動く可視化」にカードを足す（`snippets/` を参照）
-7. 両方のリポジトリで `content/page/changelog/` の日英先頭に当日付で追記する。文型は「新規ツール「UpSet」を追加しました。」
-8. デプロイ後、次を確認する
+## アクセスできなかったリポジトリへの適用
+
+### dataviz-jp（www.dataviz.jp / app.dataviz.jp の一覧）
+
+changelog は入れない。投稿とカードだけ。
+
+1. `docs/publish/dataviz-jp/content/post/upset/` を `content/post/upset/` へコピー（`index.md` / `index.en.md` / `images/cover_upset.png`）
+2. `docs/publish/cover_upset.png` を `static/images/cover_upset.png` へコピー
+3. `content/page/how-to-use-data-viz/` の日英に `docs/publish/snippets/how-to-use-data-viz.md` と `.en.md` を追記（目次リンクも）
+4. `content/post/feature-data-viz-capabilities/` の「探索的なデータ可視化」に `docs/publish/snippets/feature-data-viz-capabilities.md` を追記
+
+### dataviz-app（catalog）
+
+1. `catalog.json` の `entries` に `docs/publish/dataviz-app/catalog-entries.json` をマージする。既存 id（`upset-movies-genres` など）があれば重複追加しない
+2. 必要なら `tool-capabilities` に `docs/publish/dataviz-app/tool-capabilities-entry.json` をマージする
+3. サンプル JSON はツールオリジン（`https://upset.dataviz.jp/data/...`）を指す。CSV 単体は UpSet が読めないので `public/data/` へ生 CSV だけ置かない
+
+`fileUrl` を `https://app.dataviz.jp/data/` に移すなら、記述子 JSON とその `file` が指す表データを同じディレクトリに置く。
+
+## ユーザーがやること（権限が要る作業）
+
+本番 DNS はこちらから変更していません。
+
+1. このリポジトリの PR #4 をレビューして master へマージする（マージはエージェントではしない）
+2. GitHub Pages: Source は `master` / `/`。Custom domain を `upset.dataviz.jp` にする（リポジトリ設定。Pages API 上は現在 `cname: null`）
+3. DNS: `upset.dataviz.jp` を GitHub Pages（`data-visualization-lectures.github.io`）へ向ける。既に向いている場合は触らない
+4. `dataviz-jp` と `dataviz-app` に上のキットを適用してデプロイする
+5. デプロイ後の確認
+   - https://upset.dataviz.jp/ が 200（共通ヘッダー付き）
    - https://www.dataviz.jp/upset/ が 200
-   - https://www.dataviz.jp/tools/ ・ https://app.dataviz.jp/tools ・ https://tools.data-viz-lectures.com/tools/ の3つにカードがある
+   - https://www.dataviz.jp/tools/ ・ https://app.dataviz.jp/tools ・ https://tools.data-viz-lectures.com/tools/ にカード
    - 認証済みブラウザで保存・読込・サンプル。未ログインは `/?auth_debug`
-
-changelog だけ、または `tools.data-viz-lectures.com` に出ているだけでは未完了です。

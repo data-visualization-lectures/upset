@@ -9,11 +9,11 @@ image: "images/cover_upset.png"
 ---
 
 {{< external-link-card
- url="https://upset.dataviz.jp/"
- title="UpSet"
- image="images/cover_upset.png"
- site="dataviz.jp"
- description="集合の交差と要素を、マトリックスとバーで探索"
+    url="https://upset.dataviz.jp/"
+    title="UpSet"
+    image="images/cover_upset.png"
+    site="dataviz.jp"
+    description="集合の交差と要素をマトリックスとバーで探索"
 >}}
 {{< /external-link-card >}}
 
