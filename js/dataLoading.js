@@ -33,9 +33,9 @@ function initData(ctx, callback, datasets) {
     /// registering custom dataset function
     $("#custom-dataset-submit").on('click', function () {
         var url = $("#custom-dataset-url").val();
-        if (url != null) {
-            loadDataSetDescriptions([url], true);
+        if (url != null && url !== '') {
             queryParameters['dataset'] = dataSetDescriptions.length;
+            loadDataSetDescriptions([url], true);
         }
     })
 
@@ -53,13 +53,13 @@ var loadDataAfterAjaxComplete = function () {
 
 var populateDSSelector = function () {
 
-    // updating the drop-down box
-    d3.select("#header-ds-selector")
-        .selectAll('option').data(dataSetDescriptions).enter().append('option')
-        .attr('value', function (d, i) {
+    var select = d3.select("#header-ds-selector");
+    var options = select.selectAll('option').data(dataSetDescriptions);
+    options.enter().append('option')
+        .attr('id', 'dataSetSelector');
+    options.attr('value', function (d, i) {
             return i;
         })
-        .attr('id', 'dataSetSelector')
         .text(function (d) {
             return d.name + ' (' + t('dataset.meta', {
                 sets: getNumberOfSets(d),
@@ -67,10 +67,11 @@ var populateDSSelector = function () {
             }) + ')';
         })
         .property('selected', function (d, i) {
-            return (i === queryParameters['dataset'])
+            return (i === queryParameters['dataset']);
         });
+    options.exit().remove();
 
-    d3.select("#header-ds-selector").on('change', setQueryParametersAndChangeDataset);
+    select.on('change', setQueryParametersAndChangeDataset);
 }
 
 function loadDataSetDescriptions(dataSetList) {
@@ -82,7 +83,16 @@ function loadDataSetDescriptions(dataSetList) {
     for (var i = 0; i < dataSetList.length; ++i) {
         var url = dataSetList[i];
         if ($.type(url) === 'string') {
-            requests.push($.ajax({ url: url, dataType: 'json', success: handleDatasetDescription}));
+            requests.push($.ajax({
+                url: url,
+                dataType: 'json',
+                success: function (result) {
+                    if (result) {
+                        result._sourceUrl = url;
+                    }
+                    handleDatasetDescription(result);
+                }
+            }));
         } else {
             handleDatasetDescription(url);
         }
@@ -214,6 +224,11 @@ function updateQueryParameters() {
             urlQueryString += (q + "=" + queryParameters[q]) + "&";
         }
         urlQueryString = urlQueryString.substring(0, urlQueryString.length - 1);
+    }
+
+    var langMatch = /(?:^|[?&])lang=(ja|en)\b/.exec(window.location.search);
+    if (langMatch && urlQueryString.indexOf('lang=') === -1) {
+        urlQueryString += (urlQueryString ? '&' : '?') + 'lang=' + langMatch[1];
     }
 
     history.replaceState({}, 'Upset', window.location.origin + window.location.pathname + urlQueryString);
@@ -719,6 +734,47 @@ function updateSetContainment(set, refresh) {
 //        d3.selectAll(".svgGRows, .foreignGRows").attr("width", ctx.w)
 //        d3.selectAll(".backgroundRect").attr("width", ctx.w - ctx.leftOffset)
     }
+}
+
+function applyUsedSetNames(names) {
+    if (!names || !names.length || typeof sets === 'undefined' || !sets.length) {
+        return false;
+    }
+
+    usedSets.length = 0;
+    sets.forEach(function (set) {
+        set.isSelected = false;
+    });
+
+    names.forEach(function (name) {
+        for (var i = 0; i < sets.length; i++) {
+            if (sets[i].elementName === name) {
+                sets[i].isSelected = true;
+                usedSets.push(sets[i]);
+                break;
+            }
+        }
+    });
+
+    if (usedSets.length === 0) {
+        for (var j = 0; j < sets.length && j < nrDefaultSets; j++) {
+            sets[j].isSelected = true;
+            usedSets.push(sets[j]);
+        }
+    }
+
+    subSets.length = 0;
+    dataRows.length = 0;
+    setUpSubSets();
+    previousState = undefined;
+    updateState();
+    plotSetOverview();
+    if (initCallback) {
+        initCallback.forEach(function (callback) {
+            callback();
+        });
+    }
+    return true;
 }
 
 function addSet(set) {
