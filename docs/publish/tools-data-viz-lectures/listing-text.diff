@@ -1,0 +1,235 @@
+diff --git a/content/page/changelog/index.en.md b/content/page/changelog/index.en.md
+index 1eb82cd..4bae536 100644
+--- a/content/page/changelog/index.en.md
++++ b/content/page/changelog/index.en.md
+@@ -1,7 +1,7 @@
+ ---
+ title: "Changelog"
+ slug: "changelog"
+-date: 2026-10-05
++date: 2026-10-07
+ ---
+ 
+ 
+@@ -18,6 +18,11 @@ And more. This list will be updated as needed.
+ 
+ ## Changelog
+ 
++### October 7, 2026 (Visualization)
++
++- Added new tool: "UpSet." Explore intersections of multiple sets and their elements with a matrix and bars.
++
++
+ ### October 5, 2026 (Visualization)
+ 
+ - Added new tool: "Tree Chart Builder." Create treemaps, radial trees, icicle charts, and sunbursts from hierarchical data.
+diff --git a/content/page/changelog/index.md b/content/page/changelog/index.md
+index 22b1036..01d7d46 100644
+--- a/content/page/changelog/index.md
++++ b/content/page/changelog/index.md
+@@ -1,7 +1,7 @@
+ ---
+ title: "更新情報"
+ slug: "changelog"
+-date: 2026-10-05
++date: 2026-10-07
+ ---
+ 
+ 
+@@ -18,6 +18,11 @@ date: 2026-10-05
+ 
+ ## 更新情報
+ 
++### 2026年10月7日（可視化）
++
++- 新規ツール「UpSet」を追加しました。複数集合の交差と要素を、マトリックスとバーで探索できます。
++
++
+ ### 2026年10月5日（可視化）
+ 
+ - 新規ツール「Tree Chart Builder」を追加しました。階層データから、ツリーマップ、ラディアル・ツリー、つららチャート、サンバーストの4種類を作成できます。
+diff --git a/content/page/how-to-use-data-viz/index.en.md b/content/page/how-to-use-data-viz/index.en.md
+index d150ca0..65cd428 100644
+--- a/content/page/how-to-use-data-viz/index.en.md
++++ b/content/page/how-to-use-data-viz/index.en.md
+@@ -15,6 +15,7 @@ Here is a guide to the data visualization tools available, organized by purpose.
+ - [Visualize a crosstab matrix](#visualize-a-crosstab-matrix)
+ - [Animate rankings and time-series change](#animate-rankings-and-time-series-change)
+ - [Exploratory data visualization](#exploratory-data-visualization)
++- [Explore overlapping sets](#explore-overlapping-sets)
+ - [3D visualization](#3d-visualization)
+ - [3D map visualization](#3d-map-visualization)
+ - [Create data maps by prefecture or municipality](#create-data-maps-by-prefecture-or-municipality)
+@@ -117,6 +118,17 @@ Here is a guide to the data visualization tools available, organized by purpose.
+ >}}
+ {{< /external-link-card >}}
+ 
++## Explore overlapping sets
++
++{{< external-link-card
++    url="https://upset.dataviz.jp/"
++    title="UpSet"
++    image="/images/cover_upset.png"
++    site="dataviz.jp"
++    description="Explore set intersections and their elements with a matrix and bars"
++>}}
++{{< /external-link-card >}}
++
+ ## 3D visualization
+ 
+ {{< external-link-card
+diff --git a/content/page/how-to-use-data-viz/index.md b/content/page/how-to-use-data-viz/index.md
+index 01315e1..f6f65b4 100644
+--- a/content/page/how-to-use-data-viz/index.md
++++ b/content/page/how-to-use-data-viz/index.md
+@@ -15,6 +15,7 @@ image: ""
+ - [クロス集計表を可視化したい](#クロス集計表を可視化したい)
+ - [順位や時系列の変化をアニメーションで見せたい](#順位や時系列の変化をアニメーションで見せたい)
+ - [探索的なデータ可視化をしたい場合](#探索的なデータ可視化をしたい場合)
++- [集合の重なりを見たい](#集合の重なりを見たい)
+ - [3Dの可視化をしたい](#3Dの可視化をしたい)
+ - [3D地図の可視化をしたい](#3D地図の可視化をしたい)
+ - [都道府県や市区町村単位でデータ地図をつくりたい](#都道府県や市区町村単位でデータ地図をつくりたい)
+@@ -117,6 +118,17 @@ image: ""
+ >}}
+ {{< /external-link-card >}}
+ 
++## 集合の重なりを見たい
++
++{{< external-link-card
++    url="https://upset.dataviz.jp/"
++    title="UpSet"
++    image="/images/cover_upset.png"
++    site="dataviz.jp"
++    description="集合の交差と要素をマトリックスとバーで探索"
++>}}
++{{< /external-link-card >}}
++
+ ## 3Dの可視化をしたい
+ 
+ {{< external-link-card
+diff --git a/content/post/feature-data-viz-capabilities/index.md b/content/post/feature-data-viz-capabilities/index.md
+index ec9ac99..c387f7b 100644
+--- a/content/post/feature-data-viz-capabilities/index.md
++++ b/content/post/feature-data-viz-capabilities/index.md
+@@ -84,6 +84,14 @@ image: "/images/features/feature-data-viz-capabilities.png"
+     description="カテゴリの組み合わせと件数を帯で可視化"
+ >}}
+ {{< /external-link-card >}}
++{{< external-link-card
++    url="https://upset.dataviz.jp/"
++    title="UpSet"
++    image="/images/cover_upset.png"
++    site="dataviz.jp"
++    description="集合の交差をマトリックスとバーで探索"
++>}}
++{{< /external-link-card >}}
+ 
+ 
+ ## 3D・3D地図の可視化をしたい
+diff --git a/content/post/upset/index.en.md b/content/post/upset/index.en.md
+new file mode 100644
+index 0000000..307cdd6
+--- /dev/null
++++ b/content/post/upset/index.en.md
+@@ -0,0 +1,47 @@
++---
++title: UpSet
++description: Explore set intersections and their elements with an interactive matrix and bars
++slug: "upset"
++weight: 1
++categories: "data-visualization"
++address: https://upset.dataviz.jp/
++image: "images/cover_upset.png"
++---
++
++{{< external-link-card
++    url="https://upset.dataviz.jp/"
++    title="UpSet"
++    image="images/cover_upset.png"
++    site="dataviz.jp"
++    description="Explore set intersections and their elements with a matrix and bars"
++>}}
++{{< /external-link-card >}}
++
++## What is this tool?
++
++UpSet is an interactive visualization for exploring how multiple sets overlap. When a Venn diagram becomes hard to read, UpSet lines up intersections, cardinalities, and deviations as a matrix plus bar charts. You can aggregate and sort intersections, then query the items that belong to them.
++
++## Features
++
++- Intersection matrix: Dots and lines show which sets combine; bars compare how many elements they contain
++- Aggregation: Group by degree, set, deviation, or overlap degree, including a second aggregation level
++- Sorting: Degree, cardinality, or deviation
++- Set selection: Add or remove sets, and sort unused sets by size or name
++- Element view: Inspect items in an intersection with scatterplots, histograms, word clouds, and a linked table
++- Custom data: Load an UpSet JSON descriptor (table location plus set columns) from a URL
++- Project saving: Save and restore the dataset pointer, active sets, aggregation, and sort order to the cloud
++
++## How to use
++
++- Load a sample from the header, or pick a dataset from the list
++- Choose which sets to use, then change aggregation and sorting in the left panel
++- Click an intersection bar to drive the element queries and table on the right
++- For your own data, open "Load Data" and paste the URL of a JSON descriptor
++- Use "Save Project" in the header to keep the current view in the cloud
++
++## Data format
++
++- File format: An UpSet JSON descriptor plus the tabular file it points to (CSV / TSV)
++- The JSON defines `file`, `separator`, `header`, `sets` (column range for set membership), and `meta` (id and attribute columns)
++- Set columns are binary 0/1 membership flags
++- A raw CSV file cannot be loaded on its own. See [Data Import](https://github.com/VCG/upset/wiki/Data-Import) for the descriptor format
+diff --git a/content/post/upset/index.md b/content/post/upset/index.md
+new file mode 100644
+index 0000000..32097ae
+--- /dev/null
++++ b/content/post/upset/index.md
+@@ -0,0 +1,47 @@
++---
++title: UpSet
++description: 集合の交差と要素を、マトリックスとバーで探索するインタラクティブな可視化
++slug: "upset"
++weight: 1
++categories: "data-visualization"
++address: https://upset.dataviz.jp/
++image: "images/cover_upset.png"
++---
++
++{{< external-link-card
++    url="https://upset.dataviz.jp/"
++    title="UpSet"
++    image="images/cover_upset.png"
++    site="dataviz.jp"
++    description="集合の交差と要素をマトリックスとバーで探索"
++>}}
++{{< /external-link-card >}}
++
++## どんなツールか？
++
++UpSet は、複数の集合がどう重なるかを探索するためのインタラクティブな可視化です。ベン図では追いにくい、集合が多いデータの交差・要素数・偏差を、マトリックスとバーチャートで並べて見られます。交差の集約や並べ替え、要素側のクエリと連動可視化に対応しています。
++
++## 機能
++
++- 交差マトリックス: どの集合の組み合わせかを点と線で示し、要素数をバーで比較
++- 集約: 次数・集合・偏差・重なり次数でグループ化。2段階の集約にも対応
++- 並べ替え: 次数、要素数（Cardinality）、偏差
++- 集合の選択: 使う集合の追加・解除、サイズ順／名前順
++- 要素ビュー: 散布図、ヒストグラム、ワードクラウドなどで交差に属する要素を確認
++- カスタムデータ: UpSet 形式の JSON 記述子（表データの所在と集合列を定義）を URL から読み込み
++- プロジェクト保存: データセットの指定、使用集合、集約と並べ替えをクラウドに保存・復元
++
++## 使い方
++
++- ヘッダーのサンプル、またはデータセット一覧から読み込む
++- 上段で使う集合を選び、左パネルで集約と並べ替えを切り替える
++- 交差のバーをクリックすると、右パネルの要素クエリとテーブルが連動する
++- 独自データは「データを読み込む」から JSON 記述子の URL を指定する
++- 作業状態はヘッダーの「プロジェクトの保存」でクラウドに残せる
++
++## データ形式
++
++- ファイル形式: UpSet の JSON 記述子 + 参照先の表データ（CSV / TSV）
++- JSON に `file`（表のパス）、`separator`、`header`、`sets`（集合列の範囲）、`meta`（ID や属性列）を書く
++- 集合列は 0/1 のバイナリ（その行が集合に属するか）
++- 生の CSV だけを渡すことはできない。記述子の作り方は [Data Import](https://github.com/VCG/upset/wiki/Data-Import) を参照

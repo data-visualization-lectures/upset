@@ -21,14 +21,42 @@
 - サンプルは UpSet の JSON 記述子（`sets` / `meta`）。CSV 単体は読めない
 - ローカル確認: `http://127.0.0.1:8000/?auth_debug`
 
-## アクセスできたリポジトリへの適用
+## 兄弟リポジトリは clone できたが push は 403
 
-`tools-data-viz-lectures` と `dataviz-api` はこのキットと同じ内容をブランチに載せています。PR が開けていればそれをレビューしてください。ブランチだけある場合:
+`cursor[bot]` には `tools-data-viz-lectures` と `dataviz-api` の書き込みがありません。変更はローカルでコミット済みで、このキットに差分を残しています。ユーザー側でブランチを push して PR を開いてください。**merge はしないでください。**
 
-```text
-https://github.com/data-visualization-lectures/tools-data-viz-lectures/compare/main...cursor/list-upset-0d50
-https://github.com/data-visualization-lectures/dataviz-api/compare/main...cursor/register-upset-0d50
+### tools-data-viz-lectures（changelog はこちらだけ）
+
+`main` 時点の clone に対するテキスト差分: `docs/publish/tools-data-viz-lectures/listing-text.diff`
+
+```bash
+git clone https://github.com/data-visualization-lectures/tools-data-viz-lectures.git
+cd tools-data-viz-lectures
+git checkout -b cursor/list-upset-0d50
+git apply /path/to/upset/docs/publish/tools-data-viz-lectures/listing-text.diff
+mkdir -p content/post/upset/images static/images
+cp /path/to/upset/docs/publish/cover_upset.png content/post/upset/images/cover_upset.png
+cp /path/to/upset/docs/publish/cover_upset.png static/images/cover_upset.png
+git add -A && git commit -m "Add UpSet to the visualization tool listings"
+git push -u origin cursor/list-upset-0d50
 ```
+
+適用後の全文コピーも `docs/publish/tools-data-viz-lectures/content/` と `static/images/cover_upset.png` にあります。
+
+### dataviz-api
+
+```bash
+git clone https://github.com/data-visualization-lectures/dataviz-api.git
+cd dataviz-api
+git checkout -b cursor/register-upset-0d50
+git apply /path/to/upset/docs/publish/dataviz-api/apply-register-upset.patch
+npm test -- api/_lib/app-registry.test.ts
+git add api/_lib/app-registry.ts api/_lib/app-registry.test.ts
+git commit -m "Register upset in APP_REGISTRY"
+git push -u origin cursor/register-upset-0d50
+```
+
+`upset` が既にあれば重複追加しない。パッチは `weighted-directed-flow-map` の直後に 1 件だけ足します。
 
 ## アクセスできなかったリポジトリへの適用
 
@@ -54,10 +82,11 @@ changelog は入れない。投稿とカードだけ。
 本番 DNS はこちらから変更していません。
 
 1. このリポジトリの PR #4 をレビューして master へマージする（マージはエージェントではしない）
-2. GitHub Pages: Source は `master` / `/`。Custom domain を `upset.dataviz.jp` にする（リポジトリ設定。Pages API 上は現在 `cname: null`）
-3. DNS: `upset.dataviz.jp` を GitHub Pages（`data-visualization-lectures.github.io`）へ向ける。既に向いている場合は触らない
-4. `dataviz-jp` と `dataviz-app` に上のキットを適用してデプロイする
-5. デプロイ後の確認
+2. 上のパッチを `tools-data-viz-lectures` と `dataviz-api` に適用して PR を開く（このトークンは push 403）
+3. `dataviz-jp` と `dataviz-app` にキットを適用して PR を開く（このトークンではリポジトリが見つからない）
+4. GitHub Pages: Source は `master` / `/`。Custom domain を `upset.dataviz.jp` にする（リポジトリ設定。Pages API 上は現在 `cname: null`）
+5. DNS: `upset.dataviz.jp` を GitHub Pages（`data-visualization-lectures.github.io`）へ向ける。既に向いている場合は触らない
+6. デプロイ後の確認
    - https://upset.dataviz.jp/ が 200（共通ヘッダー付き）
    - https://www.dataviz.jp/upset/ が 200
    - https://www.dataviz.jp/tools/ ・ https://app.dataviz.jp/tools ・ https://tools.data-viz-lectures.com/tools/ にカード
