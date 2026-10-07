@@ -19,7 +19,6 @@
 - `appName`: `upset`（`setProjectConfig({ appName: "upset" })` と同じ）
 - 保存データは集合定義のポインタと集約／並べ替え／使用集合名。全要素のダンプは保存しない
 - サンプルは UpSet の JSON 記述子（`sets` / `meta`）。CSV 単体は読めない
-- ローカル確認: `http://127.0.0.1:8000/?auth_debug`
 
 ## 兄弟リポジトリは clone できたが push は 403
 
@@ -90,4 +89,4 @@ changelog は入れない。投稿とカードだけ。
    - https://upset.dataviz.jp/ が 200（共通ヘッダー付き）
    - https://www.dataviz.jp/upset/ が 200
    - https://www.dataviz.jp/tools/ ・ https://app.dataviz.jp/tools ・ https://tools.data-viz-lectures.com/tools/ にカード
-   - 認証済みブラウザで保存・読込・サンプル。未ログインは `/?auth_debug`
+   - 認証済みブラウザで保存・読込・サンプル
