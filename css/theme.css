@@ -43,6 +43,12 @@ html,
   -webkit-font-smoothing: antialiased;
 }
 
+/* Shared DatavizJP headers stay visible even before the custom elements upgrade */
+dataviz-header,
+dataviz-tool-header {
+  display: block;
+}
+
 .upset-body input,
 .upset-body select,
 .upset-body button,
@@ -72,8 +78,7 @@ html,
 }
 
 .upset-body .header-right,
-.upset-body .header-right-clickable,
-.upset-body #lang-switcher {
+.upset-body .header-right-clickable {
   font-size: var(--fs-md);
   font-weight: 400;
   padding-right: 14px;
@@ -88,10 +93,6 @@ html,
 .upset-body .header-right-clickable:hover,
 .upset-body .header-right-clickable a:hover {
   color: #fff;
-}
-
-.upset-body .lang-switcher-btn {
-  font-weight: 600;
 }
 
 .upset-body #dataset-selector select,

@@ -1,45 +1,10 @@
 /**
  * JA/EN locale for UpSet.
- * Resolution matches DatavizJP tool headers:
+ * Uses the DatavizJP shared resolver (dataviz-locale.v1.js):
  * URL(?lang= / /en/) > locale cookie > html lang > navigator.language
  */
 (function (global) {
     'use strict';
-
-    var COOKIE_NAME = 'locale';
-    var COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
-
-    function fromUrl() {
-        try {
-            var url = new URL(window.location.href);
-            var langParam = (url.searchParams.get('lang') || '').toLowerCase();
-            if (langParam === 'ja' || langParam === 'en') {
-                return langParam;
-            }
-            if (url.pathname === '/en' || url.pathname.indexOf('/en/') === 0) {
-                return 'en';
-            }
-        } catch (e) {
-            // ignore
-        }
-        return null;
-    }
-
-    function fromCookie() {
-        try {
-            var raw = document.cookie
-                .split(';')
-                .map(function (c) { return c.trim(); })
-                .filter(function (c) { return c.indexOf(COOKIE_NAME + '=') === 0; })[0];
-            if (!raw) {
-                return null;
-            }
-            var value = decodeURIComponent(raw.slice((COOKIE_NAME + '=').length)).toLowerCase();
-            return (value === 'ja' || value === 'en') ? value : null;
-        } catch (e) {
-            return null;
-        }
-    }
 
     function resolveLocale() {
         if (global.DatavizLocale && typeof global.DatavizLocale.resolve === 'function') {
@@ -48,35 +13,22 @@
                 return shared;
             }
         }
-        var urlLocale = fromUrl();
-        if (urlLocale) {
-            return urlLocale;
+        if (typeof global.dvzResolveLocale === 'function') {
+            var dvz = global.dvzResolveLocale();
+            if (dvz === 'ja' || dvz === 'en') {
+                return dvz;
+            }
         }
-        var cookieLocale = fromCookie();
-        if (cookieLocale) {
-            return cookieLocale;
-        }
-        var htmlLang = ((document.documentElement && document.documentElement.lang) || '').toLowerCase();
-        if (htmlLang.indexOf('ja') === 0) {
-            return 'ja';
-        }
-        if (htmlLang.indexOf('en') === 0) {
-            return 'en';
-        }
-        var navLang = (navigator.language || navigator.userLanguage || 'ja').toLowerCase();
-        return navLang.indexOf('ja') === 0 ? 'ja' : 'en';
+        return 'ja';
     }
 
     var messages = {
         'page.title': { ja: 'UpSet', en: 'UpSet' },
         'header.title': { ja: 'UpSet - 集合の重なりを可視化', en: 'UpSet - Visualizing Intersecting Sets' },
         'header.dataviz': { ja: 'dataviz.jp', en: 'dataviz.jp' },
-        'header.upsetR': { ja: 'R版 UpSet', en: 'UpSet for R' },
         'header.about': { ja: 'UpSetについて', en: 'About UpSet' },
         'header.loadData': { ja: 'データを読み込む', en: 'Load Data' },
         'header.chooseDataset': { ja: 'データセットを選択', en: 'Choose Dataset' },
-        'header.langJa': { ja: 'JA', en: 'JA' },
-        'header.langEn': { ja: 'EN', en: 'EN' },
 
         'menu.customData': {
             ja: 'データを定義する<a href="https://github.com/VCG/upset/wiki/Data-Import">JSONファイル</a>を指定: ',
@@ -240,66 +192,10 @@
         }
     }
 
-    function writeCookie(lang) {
-        document.cookie = COOKIE_NAME + '=' + encodeURIComponent(lang) + '; path=/; max-age=' + COOKIE_MAX_AGE;
-    }
-
-    function setLocale(lang) {
-        if (lang !== 'ja' && lang !== 'en') {
-            return;
-        }
-        writeCookie(lang);
-        try {
-            var url = new URL(window.location.href);
-            url.searchParams.set('lang', lang);
-            window.location.href = url.toString();
-        } catch (e) {
-            window.location.search = 'lang=' + lang;
-        }
-    }
-
-    function syncSwitcher() {
-        var root = document.getElementById('lang-switcher');
-        if (!root) {
-            return;
-        }
-        var buttons = root.querySelectorAll('[data-set-lang]');
-        for (var i = 0; i < buttons.length; i++) {
-            var button = buttons[i];
-            var active = button.getAttribute('data-set-lang') === locale;
-            button.className = active ? 'lang-switcher-btn is-active' : 'lang-switcher-btn';
-            button.setAttribute('aria-pressed', active ? 'true' : 'false');
-        }
-    }
-
-    function initSwitcher() {
-        var root = document.getElementById('lang-switcher');
-        if (!root || root.getAttribute('data-bound') === 'true') {
-            return;
-        }
-        root.setAttribute('data-bound', 'true');
-        root.addEventListener('click', function (event) {
-            var target = event.target;
-            while (target && target !== root) {
-                var lang = target.getAttribute && target.getAttribute('data-set-lang');
-                if (lang) {
-                    event.preventDefault();
-                    if (lang !== locale) {
-                        setLocale(lang);
-                    }
-                    return;
-                }
-                target = target.parentNode;
-            }
-        });
-        syncSwitcher();
-    }
-
     document.documentElement.lang = locale;
 
     function boot() {
         applyStatic();
-        initSwitcher();
     }
 
     if (document.readyState === 'loading') {
@@ -313,13 +209,7 @@
         t: t,
         locale: locale,
         resolve: resolveLocale,
-        setLocale: setLocale,
         applyStatic: applyStatic,
         isJa: locale === 'ja'
     };
-    if (!global.DatavizLocale) {
-        global.DatavizLocale = {
-            resolve: resolveLocale
-        };
-    }
 })(window);
