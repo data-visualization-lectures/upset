@@ -413,21 +413,46 @@
     }
 
     function whenHeaderReady(callback) {
-        var el = toolHeader();
-        if (!el) {
-            return;
-        }
-        if (window.customElements && typeof customElements.whenDefined === 'function') {
-            if (customElements.get('dataviz-tool-header')) {
-                callback(el);
+        var called = false;
+        function run(el) {
+            if (called || !el) {
                 return;
             }
-            customElements.whenDefined('dataviz-tool-header').then(function () {
-                callback(el);
-            });
+            called = true;
+            callback(el);
+        }
+
+        function start(el) {
+            if (!el) {
+                return;
+            }
+            if (typeof el.setConfig === 'function') {
+                run(el);
+                return;
+            }
+            if (window.customElements && typeof customElements.whenDefined === 'function') {
+                if (customElements.get('dataviz-tool-header')) {
+                    run(el);
+                    return;
+                }
+                customElements.whenDefined('dataviz-tool-header').then(function () {
+                    run(toolHeader() || el);
+                });
+                return;
+            }
+            run(el);
+        }
+
+        var existing = toolHeader();
+        if (existing) {
+            start(existing);
             return;
         }
-        callback(el);
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function () {
+                start(toolHeader());
+            });
+        }
     }
 
     function setupHeader(header) {
